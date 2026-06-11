@@ -53,7 +53,7 @@ class DBSSMSConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                             selector.SelectOptionDict(value=k, label=v)
                             for k, v in PROVIDERS.items()
                         ],
-                        mode=selector.SelectSelectorMode.DROPDOWN,
+                        mode="dropdown",
                     )
                 ),
             }
@@ -106,23 +106,24 @@ class DBSSMSConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         data_schema = vol.Schema(
             {
                 vol.Required(
-                    user_input.get(CONF_USERNAME) if user_input else vol.UNDEFINED,
-                    key=CONF_USERNAME,
+                    CONF_USERNAME,
+                    default=user_input.get(CONF_USERNAME) if user_input else vol.UNDEFINED,
                 ): selector.TextSelector(
                     selector.TextSelectorConfig(
                         type=selector.TextSelectorType.EMAIL
                     )
                 ),
                 vol.Required(
-                    user_input.get(CONF_PASSWORD) if user_input else vol.UNDEFINED,
-                    key=CONF_PASSWORD,
+                    CONF_PASSWORD,
+                    default=user_input.get(CONF_PASSWORD) if user_input else vol.UNDEFINED,
                 ): selector.TextSelector(
                     selector.TextSelectorConfig(
                         type=selector.TextSelectorType.PASSWORD
                     )
                 ),
                 vol.Required(
-                    CONF_DEFAULT_SENDER, default="INFO"
+                    CONF_DEFAULT_SENDER,
+                    default=user_input.get(CONF_DEFAULT_SENDER) if user_input else "INFO",
                 ): selector.TextSelector(),
             }
         )
