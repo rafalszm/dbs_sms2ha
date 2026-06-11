@@ -14,7 +14,8 @@
         "data": {
           "username": "E-mail (Login)",
           "password": "Hasło",
-          "default_sender": "Domyślny nadawca (np. INFO, TEST)"
+          "default_sender": "Domyślny nadawca (np. INFO, TEST)",
+          "cost_center": "Centrum kosztowe (Opcjonalnie)"
         }
       }
     },

@@ -8,6 +8,7 @@ from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.exceptions import HomeAssistantError
 
 from custom_components.dbs_sms.const import (
+    CONF_COST_CENTER,
     CONF_DEFAULT_SENDER,
     CONF_PROVIDER,
     DOMAIN,
@@ -26,10 +27,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     username = entry.data[CONF_USERNAME]
     password = entry.data[CONF_PASSWORD]
     default_sender = entry.data.get(CONF_DEFAULT_SENDER)
+    cost_center = entry.data.get(CONF_COST_CENTER)
 
     try:
         provider = get_provider(
-            hass, provider_type, username, password, default_sender
+            hass, provider_type, username, password, default_sender, cost_center
         )
         # Store provider and placeholder for coordinator
         hass.data[DOMAIN][entry.entry_id] = {
@@ -49,17 +51,30 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             message = call.data["message"]
             targets = call.data["targets"]
             sender = call.data.get("sender")
+            cost_center = call.data.get("cost_center")
             target_entry_id = call.data.get("config_entry")
 
-            # Ensure targets is a list
-            if isinstance(targets, str):
+            # Ensure targets is a list of strings (handles cases where UI passes integers/floats without quotes)
+            if isinstance(targets, (int, float)):
+                targets = [str(int(targets))]
+            elif isinstance(targets, str):
                 targets = [t.strip() for t in targets.split(",") if t.strip()]
             elif isinstance(targets, list):
-                targets = [str(t).strip() for t in targets if str(t).strip()]
+                parsed_targets = []
+                for t in targets:
+                    if isinstance(t, (int, float)):
+                        parsed_targets.append(str(int(t)))
+                    elif t:
+                        parsed_targets.append(str(t).strip())
+                targets = parsed_targets
             else:
-                raise HomeAssistantError("Format numerów odbiorców (targets) jest nieprawidłowy.")
+                # Fallback: try to convert whatever it is to a string representation
+                try:
+                    targets = [str(targets).strip()]
+                except Exception:
+                    raise HomeAssistantError("Format numerów odbiorców (targets) jest nieprawidłowy.")
 
-            if not targets:
+            if not targets or not any(targets):
                 raise HomeAssistantError("Lista odbiorców (targets) nie może być pusta.")
 
             # Find the provider
@@ -82,7 +97,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
             # Trigger async send
             try:
-                await selected_provider.async_send_sms(targets, message, sender)
+                await selected_provider.async_send_sms(targets, message, sender, cost_center=cost_center)
                 
                 # Refresh coordinator data in background to immediately reflect new balance
                 coordinator = selected_entry.get("coordinator")

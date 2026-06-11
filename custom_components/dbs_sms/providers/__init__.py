@@ -7,15 +7,16 @@ _LOGGER = logging.getLogger(__name__)
 class BaseSMSProvider(ABC):
     """Abstract base class for all SMS providers."""
 
-    def __init__(self, hass, username: str, password: str, default_sender: str = None) -> None:
+    def __init__(self, hass, username: str, password: str, default_sender: str = None, cost_center: str = None) -> None:
         """Initialize the provider."""
         self.hass = hass
         self.username = username
         self.password = password
         self.default_sender = default_sender
+        self.cost_center = cost_center
 
     @abstractmethod
-    async def async_send_sms(self, phones: list[str], message: str, sender: str = None) -> bool:
+    async def async_send_sms(self, phones: list[str], message: str, sender: str = None, cost_center: str = None) -> bool:
         """Send an SMS to one or more phone numbers."""
         pass
 
@@ -32,14 +33,14 @@ class BaseSMSProvider(ABC):
         pass
 
 
-def get_provider(hass, provider_type: str, username: str, password: str, default_sender: str = None) -> BaseSMSProvider:
+def get_provider(hass, provider_type: str, username: str, password: str, default_sender: str = None, cost_center: str = None) -> BaseSMSProvider:
     """Get the appropriate provider implementation."""
     from custom_components.dbs_sms.const import PROVIDER_HOSTEDSMS
     from custom_components.dbs_sms.exceptions import SMSProviderError
 
     if provider_type == PROVIDER_HOSTEDSMS:
         from .hostedsms_provider import HostedSMSProvider
-        return HostedSMSProvider(hass, username, password, default_sender)
+        return HostedSMSProvider(hass, username, password, default_sender, cost_center)
     
     raise SMSProviderError(f"Nieobsługiwany dostawca SMS: {provider_type}")
 

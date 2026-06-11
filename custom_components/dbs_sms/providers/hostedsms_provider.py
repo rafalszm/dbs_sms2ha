@@ -74,12 +74,13 @@ class HostedSMSProvider(BaseSMSProvider):
         
         raise SMSConnectionError(f"Błąd połączenia z serwerami HostedSMS: {last_error}")
 
-    async def async_send_sms(self, phones: list[str], message: str, sender: str = None) -> bool:
+    async def async_send_sms(self, phones: list[str], message: str, sender: str = None, cost_center: str = None) -> bool:
         """Send an SMS via HostedSMS FullApi/Smses."""
         payload = {
             "Phone": phones,
             "Message": message,
             "Sender": sender or self.default_sender or "INFO",
+            "CostCenter": cost_center or self.cost_center or None,
         }
         await self._async_request("POST", "/Smses", json_data=payload)
         return True

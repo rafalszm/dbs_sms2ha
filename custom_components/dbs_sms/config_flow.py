@@ -72,12 +72,13 @@ class DBSSMSConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             username = user_input[CONF_USERNAME]
             password = user_input[CONF_PASSWORD]
-            default_sender = user_input.get(CONF_DEFAULT_SENDER)
+            default_sender = user_input[CONF_DEFAULT_SENDER]
+            cost_center = user_input.get(CONF_COST_CENTER)
 
             try:
-                # Verify credentials with the API
+                # Verify credentials and cost center with the API
                 provider = get_provider(
-                    self.hass, PROVIDER_HOSTEDSMS, username, password, default_sender
+                    self.hass, PROVIDER_HOSTEDSMS, username, password, default_sender, cost_center
                 )
                 await provider.async_get_info()
             except InvalidAuthError:
@@ -99,6 +100,7 @@ class DBSSMSConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         CONF_USERNAME: username,
                         CONF_PASSWORD: password,
                         CONF_DEFAULT_SENDER: default_sender,
+                        CONF_COST_CENTER: cost_center,
                     },
                 )
 
@@ -124,6 +126,10 @@ class DBSSMSConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 vol.Required(
                     CONF_DEFAULT_SENDER,
                     default=user_input.get(CONF_DEFAULT_SENDER) if user_input else "INFO",
+                ): selector.TextSelector(),
+                vol.Optional(
+                    CONF_COST_CENTER,
+                    default=user_input.get(CONF_COST_CENTER) if user_input else vol.UNDEFINED,
                 ): selector.TextSelector(),
             }
         )

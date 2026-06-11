@@ -21,6 +21,12 @@ send_sms:
       required: false
       selector:
         text:
+    cost_center:
+      name: Centrum Kosztowe (Opcjonalnie)
+      description: Nazwa centrum kosztowego, do którego ma zostać przypisany koszt wysłania tego SMS-a. Wymagane, jeśli w panelu HostedSMS masz włączoną tę funkcję.
+      required: false
+      selector:
+        text:
     config_entry:
       name: Konto (Opcjonalnie)
       description: Wskaż konto DBS SMS, z którego ma zostać wysłana wiadomość (przydatne, gdy skonfigurowano wielu dostawców/konta).

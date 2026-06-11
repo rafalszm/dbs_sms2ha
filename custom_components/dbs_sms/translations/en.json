@@ -14,7 +14,8 @@
         "data": {
           "username": "E-mail (Login)",
           "password": "Password",
-          "default_sender": "Default sender ID (e.g., INFO, TEST)"
+          "default_sender": "Default sender ID (e.g., INFO, TEST)",
+          "cost_center": "Cost Center (Optional)"
         }
       }
     },
