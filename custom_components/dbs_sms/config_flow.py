@@ -121,7 +121,7 @@ class DBSSMSConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         type=selector.TextSelectorType.PASSWORD
                     )
                 ),
-                vol.Optional(
+                vol.Required(
                     CONF_DEFAULT_SENDER, default="INFO"
                 ): selector.TextSelector(),
             }
