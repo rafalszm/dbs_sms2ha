@@ -1,0 +1,28 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "DBS SMS: Select provider",
+        "description": "Choose the SMS gateway provider you want to configure in Home Assistant.",
+        "data": {
+          "provider": "SMS Provider"
+        }
+      },
+      "hostedsms": {
+        "title": "DBS SMS: HostedSMS.pl credentials",
+        "description": "Enter your login details for the HostedSMS.pl service. Your credentials and connection are secure.",
+        "data": {
+          "username": "E-mail (Login)",
+          "password": "Password",
+          "default_sender": "Default sender ID (e.g., INFO, TEST)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid email or password.",
+      "cannot_connect": "Failed to connect to the SMS provider servers.",
+      "provider_error": "SMS provider API error. See logs for details.",
+      "unknown": "An unexpected error occurred. Please check Home Assistant logs."
+    }
+  }
+}

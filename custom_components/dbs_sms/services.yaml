@@ -1,0 +1,30 @@
+send_sms:
+  name: Wyślij SMS
+  description: Wysyła wiadomość SMS do wskazanych numerów odbiorców za pomocą wybranego dostawcy API.
+  fields:
+    message:
+      name: Treść wiadomości
+      description: Treść wiadomości SMS. Wspiera szablony Home Assistant (np. {{ states('sensor.temperatura') }}).
+      required: true
+      selector:
+        text:
+          multiline: true
+    targets:
+      name: Numery odbiorców
+      description: Lista numerów telefonów w formacie międzynarodowym (np. 48501502503) lub pojedynczy numer. Można też wpisać wiele numerów rozdzielonych przecinkami.
+      required: true
+      selector:
+        object:
+    sender:
+      name: Nadpis nadawcy (Opcjonalnie)
+      description: Nazwa nadawcy (np. INFO, TEST). Nadawca musi być zweryfikowany/przypisany do Twojego konta u dostawcy. Jeśli nie podano, użyje wartości domyślnej z konfiguracji.
+      required: false
+      selector:
+        text:
+    config_entry:
+      name: Konto (Opcjonalnie)
+      description: Wskaż konto DBS SMS, z którego ma zostać wysłana wiadomość (przydatne, gdy skonfigurowano wielu dostawców/konta).
+      required: false
+      selector:
+        config_entry:
+          integration: dbs_sms

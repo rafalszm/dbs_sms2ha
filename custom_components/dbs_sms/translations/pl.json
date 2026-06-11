@@ -1,0 +1,28 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "DBS SMS: Wybierz dostawcę",
+        "description": "Wybierz bramkę SMS, którą chcesz skonfigurować w Home Assistant.",
+        "data": {
+          "provider": "Dostawca bramki SMS"
+        }
+      },
+      "hostedsms": {
+        "title": "DBS SMS: Dane HostedSMS.pl",
+        "description": "Wprowadź swoje dane logowania do serwisu HostedSMS.pl. Twoje hasło i połączenie są bezpieczne.",
+        "data": {
+          "username": "E-mail (Login)",
+          "password": "Hasło",
+          "default_sender": "Domyślny nadawca (np. INFO, TEST)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Niepoprawny e-mail lub hasło.",
+      "cannot_connect": "Nie udało się nawiązać połączenia z serwerami dostawcy.",
+      "provider_error": "Błąd API dostawcy bramki. Szczegóły znajdziesz w logach.",
+      "unknown": "Wystąpił nieoczekiwany błąd. Sprawdź logi Home Assistant."
+    }
+  }
+}
