@@ -10,6 +10,7 @@ from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import selector
 
 from custom_components.dbs_sms.const import (
+    CONF_COST_CENTER,
     CONF_DEFAULT_SENDER,
     CONF_PROVIDER,
     DOMAIN,
