@@ -2,6 +2,7 @@
 import base64
 import logging
 import aiohttp
+import uuid
 
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
@@ -80,6 +81,7 @@ class HostedSMSProvider(BaseSMSProvider):
             "Phone": phones,
             "Message": message,
             "Sender": sender or self.default_sender or "INFO",
+            "TransactionId": uuid.uuid4().hex,
             "CostCenter": cost_center or self.cost_center or None,
         }
         await self._async_request("POST", "/Smses", json_data=payload)
