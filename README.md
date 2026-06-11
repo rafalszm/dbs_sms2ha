@@ -50,6 +50,8 @@ data:
   targets: "48501502503"
 ```
 
-## Licencja
+## Autor i Licencja
 
-Oprogramowanie jest udostępniane na warunkach określonych w pliku `LICENSE`. Jest darmowe do celów prywatnych i niekomercyjnych. Jakiekolwiek wykorzystanie komercyjne wymaga uzyskania zgody autora oraz zakupienia osobnej licencji.
+Projekt jest rozwijany i licencjonowany przez firmę **Digital Best Solutions** ([dbsservice.pl](https://dbsservice.pl/)).
+
+Oprogramowanie jest udostępniane na warunkach określonych w pliku [LICENSE](LICENSE). Korzystanie z niego jest całkowicie bezpłatne do celów prywatnych i niekomercyjnych. Jakiekolwiek komercyjne wdrożenie lub użycie w ramach prowadzonej działalności gospodarczej wymaga uzyskania pisemnej zgody oraz zakupienia licencji komercyjnej.

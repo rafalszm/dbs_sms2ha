@@ -1,9 +1,9 @@
 {
   "domain": "dbs_sms",
   "name": "DBS SMS",
-  "codeowners": [],
+  "codeowners": ["@rafalszm"],
   "config_flow": true,
-  "documentation": "https://github.com/dcs-pl/HostedSMStoHomeAssistant",
+  "documentation": "https://github.com/rafalszm/dbs_sms2ha",
   "iot_class": "cloud_polling",
   "requirements": [],
   "version": "1.0.0"
