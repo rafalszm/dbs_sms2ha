@@ -146,7 +146,7 @@ class DBSSMSConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         config_entry: config_entries.ConfigEntry,
     ) -> DBSSMSOptionsFlowHandler:
         """Create the options flow."""
-        return DBSSMSOptionsFlowHandler(config_entry)
+        return DBSSMSOptionsFlowHandler()
 
 
 class DBSSMSOptionsFlowHandler(config_entries.OptionsFlow):
